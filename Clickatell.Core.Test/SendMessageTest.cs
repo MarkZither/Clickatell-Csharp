@@ -23,7 +23,7 @@ namespace Clickatell.Core.Test
         [Fact]
         public async Task<string> GetShortUrlReturnsGoog()
         {
-            string shortUrl = await Clickatell.Core.lib.Api.CreateShortURL("https://blog.noknok.pl");
+            string shortUrl = await Clickatell.Core.lib.Api.CreateShortURL("https://blog.noknok.pl??id="+ Guid.NewGuid().ToString());
             return shortUrl;
         }
         
@@ -31,7 +31,7 @@ namespace Clickatell.Core.Test
         public async Task GetShortenedURLListReturnsUrlHistory()
         {
             string UrlHistory = await Clickatell.Core.lib.Api.GetAllShortURLs();
-            Assert.
+            Assert.True(true);
         }
     }
 }

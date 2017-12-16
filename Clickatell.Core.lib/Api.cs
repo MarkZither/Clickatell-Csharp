@@ -5,6 +5,10 @@ using Google.Apis.Urlshortener.v1.Data;
 using Google.Apis.Urlshortener.v1;
 using Google.Apis.Services;
 using System.Threading.Tasks;
+using Google.Apis.Auth.OAuth2;
+using System.Threading;
+using Google.Apis.Util.Store;
+using System.IO;
 
 namespace Clickatell.Core.lib
 {
@@ -31,32 +35,61 @@ namespace Clickatell.Core.lib
 
         public static async Task<string> CreateShortURL(string urlToShorten)
         {
-            
+            UserCredential credential = await Authenticate();
+
             UrlshortenerService service = new UrlshortenerService(new BaseClientService.Initializer
             {
+                HttpClientInitializer = credential,
                 ApplicationName = "UrlShortener.ShortenURL sample",
-                ApiKey = ""
+                //ApiKey = ""
             });
-            
+
             // Shorten URL
             Url response = await service.Url.Insert(new Url { LongUrl = urlToShorten }).ExecuteAsync();
             // Display response
             return response.Id;
         }
-        /*
+
         public static async Task<string> GetAllShortURLs()
         {
+            UserCredential credential = await Authenticate();
+
             UrlshortenerService service = new UrlshortenerService(new BaseClientService.Initializer
             {
+                HttpClientInitializer = credential,
                 ApplicationName = "UrlShortener.ShortenURL sample",
-                ApiKey = ""
+                //ApiKey = ""
             });
 
             // Shorten URL
             UrlHistory response = service.Url.List().Execute();
             // Display response
-            return ;
+            return JsonConvert.SerializeObject(response);
         }
-        */
+
+        private static async Task<UserCredential> Authenticate()
+        {
+            UserCredential credential;
+            //from https://developers.google.com/api-client-library/dotnet/guide/aaa_oauth
+            using (var stream = new FileStream("client_secrets.json", FileMode.Open, FileAccess.Read))
+            {
+                credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    new[] { UrlshortenerService.Scope.Urlshortener },
+                    "user", CancellationToken.None, new FileDataStore("Urlshortener.MyUrls"));
+            }
+            /*
+                        credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(new ClientSecrets
+                        {
+                            ClientId = "837647042410-75ifg...usercontent.com",
+                            ClientSecret = "asdlkfjaskd"
+                        },
+                        new[] { UrlshortenerService.Scope.Urlshortener },
+                        "user",
+                        CancellationToken.None,
+                        new FileDataStore("Urlshortener.MyUrls"));
+            */
+            return credential;
+        }
     }
 }
