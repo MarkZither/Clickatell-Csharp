@@ -1,18 +1,18 @@
 # Clickatell-Csharp
 This is a C# class built in VS2017 which sends out SMS's using the Clickatell Rest API
 
-##Requirements:
+## Requirements:
 This script is built with .NET Core 2.0
 Newtonsoft.JSON 10.0.3
 Google.Apis.Urlshortener.v1 1.32.0.138
 
-##Installation:
+## Installation:
 add Clickatell.Core.lib into your project (nuget package coming soon)
 
-##What This Class Can Do:
+## What This Class Can Do:
 This script allows you to send an sms or a 2 way message using Clickatell's platform.
 
-##Using The Class:
+## Using The Class:
 You call the class by using 
 ```
 private string response;
