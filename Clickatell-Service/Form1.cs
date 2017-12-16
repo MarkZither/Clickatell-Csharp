@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Clickatell.Core.lib;
+
 namespace Clickatell_Service
 {
     public partial class Form : System.Windows.Forms.Form
