@@ -241,3 +241,6 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /Clickatell.Core.lib/client_secrets.json
+/Clickatell.Core.Test/App.config
+/Clickatell.Core.Test/client-secrets.json
+/Clickatell.Core.Test/client_secrets.json

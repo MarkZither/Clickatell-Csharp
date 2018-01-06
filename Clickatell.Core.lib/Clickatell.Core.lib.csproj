@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Apis.Urlshortener.v1" Version="1.32.0.138" />
+    <PackageReference Include="MonkeyCache.SQLite" Version="0.0.1.41-beta" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
